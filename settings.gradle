@@ -1,2 +1,3 @@
 rootProject.name = 'contact-list-app'
+include 'backend'
 
