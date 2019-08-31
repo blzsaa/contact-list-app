@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import java.util.UUID
 import javax.validation.Valid
 
-@CrossOrigin(origins = ["http://localhost:3000"])
+@CrossOrigin(origins = ["http://localhost:5000"])
 @RestController
 @RequestMapping("contacts")
 class ContactController(private val contactCrudService: ContactCrudService) {

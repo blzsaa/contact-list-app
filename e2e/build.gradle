@@ -1,0 +1,13 @@
+plugins {
+    id 'com.avast.gradle.docker-compose' version "0.9.1"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dockerCompose {
+    useComposeFiles = ['docker-compose.yml']
+    composeLogToFile = project.file('build/composeLogs.log')
+    containerLogToDir = project.file('build/containerlogs')
+}

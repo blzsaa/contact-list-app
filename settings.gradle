@@ -1,4 +1,5 @@
 rootProject.name = 'contact-list-app'
 include 'backend'
 include 'frontend'
+include 'e2e'
 

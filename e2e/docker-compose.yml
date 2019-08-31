@@ -1,0 +1,19 @@
+version: '3'
+services:
+  mongo:
+    image: "mongo"
+    ports:
+      - "27017"
+  backend:
+    image: "contact-list-app/backend"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+  frontend:
+    image: contact-list-app/frontend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - backend
+

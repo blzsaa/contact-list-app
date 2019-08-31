@@ -5,6 +5,8 @@ plugins {
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
     kotlin("jvm") version "1.3.50"
     kotlin("plugin.spring") version "1.3.50"
+    id ("com.palantir.docker") version "0.21.0"
+
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8
@@ -48,11 +50,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-    implementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
+    testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
     testImplementation("org.junit.jupiter:junit-jupiter:5.5.1")
     testImplementation("org.assertj:assertj-core:3.13.2")
     testImplementation("io.mockk:mockk:1.9.3.kotlin12")
@@ -63,3 +65,14 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+docker{
+    name = "${project.group}/${project.name}:latest"
+    files("build/libs/backend.jar")
+    buildArgs(mapOf("JAR_FILE" to  "${project.name}.jar"))
+}
+tasks.named("dockerPrepare") {
+    dependsOn("bootJar")
+}
+
+tasks.build{dependsOn("docker")}
