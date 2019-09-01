@@ -1,8 +1,8 @@
-package hu.blzsaa.uxstudioteam.web
+package hu.blzsaa.contactlistapp.web
 
-import hu.blzsaa.uxstudioteam.data.ContactCreationDto
-import hu.blzsaa.uxstudioteam.data.ContactDto
-import hu.blzsaa.uxstudioteam.service.ContactCrudService
+import hu.blzsaa.contactlistapp.data.ContactCreationDto
+import hu.blzsaa.contactlistapp.data.ContactDto
+import hu.blzsaa.contactlistapp.service.ContactCrudService
 import mu.KotlinLogging
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping

@@ -1,7 +1,7 @@
-package hu.blzsaa.uxstudioteam
+package hu.blzsaa.contactlistapp
 
-import hu.blzsaa.uxstudioteam.data.Contact
-import hu.blzsaa.uxstudioteam.repository.ContactRepository
+import hu.blzsaa.contactlistapp.data.Contact
+import hu.blzsaa.contactlistapp.repository.ContactRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach

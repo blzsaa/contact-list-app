@@ -1,10 +1,10 @@
-package hu.blzsaa.uxstudioteam.service
+package hu.blzsaa.contactlistapp.service
 
-import hu.blzsaa.uxstudioteam.data.Contact
-import hu.blzsaa.uxstudioteam.data.ContactCreationDto
-import hu.blzsaa.uxstudioteam.data.ContactDto
-import hu.blzsaa.uxstudioteam.helper.UuidGenerator
-import hu.blzsaa.uxstudioteam.repository.ContactRepository
+import hu.blzsaa.contactlistapp.data.Contact
+import hu.blzsaa.contactlistapp.data.ContactCreationDto
+import hu.blzsaa.contactlistapp.data.ContactDto
+import hu.blzsaa.contactlistapp.helper.UuidGenerator
+import hu.blzsaa.contactlistapp.repository.ContactRepository
 import org.springframework.stereotype.Service
 import java.util.UUID
 

@@ -1,11 +1,11 @@
-package hu.blzsaa.uxstudioteam
+package hu.blzsaa.contactlistapp
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class UxStudioTeamApplication
+class ContactListApplication
 
 fun main(args: Array<String>) {
-    runApplication<UxStudioTeamApplication>(*args)
+    runApplication<ContactListApplication>(*args)
 }

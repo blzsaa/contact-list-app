@@ -1,4 +1,4 @@
-package hu.blzsaa.uxstudioteam.data
+package hu.blzsaa.contactlistapp.data
 
 import java.util.UUID
 import org.springframework.data.annotation.Id
