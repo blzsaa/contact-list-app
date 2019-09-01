@@ -53,6 +53,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("io.github.microutils:kotlin-logging:1.7.6")
 
     testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
     testImplementation("org.junit.jupiter:junit-jupiter:5.5.1")

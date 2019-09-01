@@ -20,9 +20,32 @@ export default class App extends React.Component {
             contacts: contactsCopy,
           });
         }
-      });
+      }).catch(() => { App.cancelAction(id, contacts); });
     }
 
+    static cancelAction(id, contacts) {
+      this.setRowToReadOnly(id);
+      const origValue = contacts.find((c) => c.id === id);
+
+      document.getElementById(`${id}-name`).value = origValue.name;
+      document.getElementById(`${id}-phoneNumber`).value = origValue.phoneNumber;
+      document.getElementById(`${id}-emailAddress`).value = origValue.emailAddress;
+    }
+
+    static getSaveButton(id, contacts) {
+      return (
+        <button
+          name="save"
+          value="save"
+          id={`${id}-save-button`}
+          hidden="hidden"
+          type="submit"
+          onClick={(event) => App.updateContact(event, id, contacts)}
+        >
+                save
+        </button>
+      );
+    }
 
     static setRowToReadOnly(id) {
       document.getElementById(`${id}-name`).readOnly = true;
@@ -91,31 +114,11 @@ edit
           type="button"
           onClick={
                            () => {
-                             this.setRowToReadOnly(id);
-                             const origValue = contacts.find((c) => c.id === id);
-
-                             document.getElementById(`${id}-name`).value = origValue.name;
-                             document.getElementById(`${id}-phoneNumber`).value = origValue.phoneNumber;
-                             document.getElementById(`${id}-emailAddress`).value = origValue.emailAddress;
+                             this.cancelAction(id, contacts);
                            }
                        }
         >
 cancel edit
-        </button>
-      );
-    }
-
-    static getSaveButton(id, contacts) {
-      return (
-        <button
-          name="save"
-          value="save"
-          id={`${id}-save-button`}
-          hidden="hidden"
-          type="button"
-          onClick={(event) => App.updateContact(event, id, contacts)}
-        >
-save
         </button>
       );
     }
@@ -149,7 +152,7 @@ delete
             contacts: contactsCopy,
           });
         }
-      });
+      }).catch(() => { App.cancelAction(id, contacts); });
     }
 
     handleSubmit = (event, origContacts) => {
@@ -161,11 +164,16 @@ delete
         emailAddress: form.get('emailAddress'),
       };
       axios.post('http://localhost:8080/contacts', data).then((response) => {
+        document.getElementById('error-div').hidden = true;
+
         const modC = origContacts.concat([
           (response.data)]);
         this.setState({
           contacts: modC,
         });
+      }).catch(() => {
+        document.getElementById('error-div').innerText = 'Error, could not upload new contact';
+        document.getElementById('error-div').hidden = false;
       });
     }
 
@@ -177,19 +185,23 @@ delete
         return (
           <div>
             <h2>Add Contact</h2>
+            <div id="error-div" hidden="hidden" />
             <form onSubmit={(event) => this.handleSubmit(event, contacts)}>
               <label htmlFor="name">
-Name
-                <input type="text" name="name" id="name" defaultValue="" />
+Name*:
+                <input type="text" name="name" id="name" defaultValue="" required />
               </label>
+              <br />
               <label htmlFor="phoneNumber">
-phoneNumber
-                <input type="text" name="phoneNumber" id="phoneNumber" defaultValue="" />
+PhoneNumber*:
+                <input type="text" name="phoneNumber" id="phoneNumber" pattern="^[+]36\d{9}$" title="phone number must be a valid hungarian phone number" defaultValue="" required />
               </label>
+              <br />
               <label htmlFor="emailAddress">
-emailAddress
-                <input type="text" name="emailAddress" id="emailAddress" defaultValue="" />
+EmailAddress*:
+                <input type="email" name="emailAddress" id="emailAddress" defaultValue="" required />
               </label>
+              <br />
               <button type="submit">Add new user</button>
             </form>
           </div>
@@ -208,7 +220,7 @@ emailAddress
                   <th>emailAddress</th>
                 </tr>
                 {contacts.map((contact) => (
-                  <tr id={`${contact.id}-tr`}>
+                  <tr id={`${contact.id}-tr`} key={`${contact.id}-key`}>
                     <td>
                       <input
                         id={`${contact.id}-name`}
@@ -230,7 +242,7 @@ emailAddress
                     <td>
                       <input
                         id={`${contact.id}-emailAddress`}
-                        type="text"
+                        type="email"
                         name="emailAddress"
                         defaultValue={contact.emailAddress}
                         readOnly="readOnly"
