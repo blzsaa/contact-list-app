@@ -202,7 +202,7 @@ EmailAddress*:
                 <input type="email" name="emailAddress" id="emailAddress" defaultValue="" required />
               </label>
               <br />
-              <button type="submit">Add new user</button>
+              <button type="submit" id="create-contact-button">Add new user</button>
             </form>
           </div>
         );

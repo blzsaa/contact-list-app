@@ -1,4 +1,5 @@
 plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.3.50"
     id 'com.avast.gradle.docker-compose' version "0.9.1"
 }
 
@@ -6,8 +7,49 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-remote-driver', version: '3.141.59'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    compile "org.seleniumhq.selenium:selenium-chrome-driver:3.141.59"
+
+    compile("io.github.bonigarcia:webdrivermanager:3.3.0") {
+        exclude group: 'org.seleniumhq.selenium'
+    }
+    compile group: 'org.assertj', name: 'assertj-core', version: '3.11.1'
+
+    compile 'org.junit.jupiter:junit-jupiter:5.4.1'
+
+    compile group: 'org.awaitility', name: 'awaitility', version: '4.0.0'
+    compile group: 'org.awaitility', name: 'awaitility-kotlin', version: '4.0.0'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+composeUp.dependsOn ':backend:docker'
+composeUp.dependsOn ':frontend:docker'
+dockerCompose.isRequiredBy(test)
+composeDown.dependsOn composeLogs
+
 dockerCompose {
     useComposeFiles = ['docker-compose.yml']
     composeLogToFile = project.file('build/composeLogs.log')
     containerLogToDir = project.file('build/containerlogs')
 }
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+

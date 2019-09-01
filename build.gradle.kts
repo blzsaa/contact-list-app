@@ -8,7 +8,7 @@ plugins {
 
 spotless {
     kotlin {
-        target("backend/src/**/*.kt")
+        target("**/src/**/*.kt")
         ktlint()
     }
     kotlinGradle {
